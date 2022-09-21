@@ -1,0 +1,29 @@
+component: http
+name: http-flask-BnTKMgF8Mx
+inputs:
+  src:
+    dist: ./
+    exclude:
+      - .env
+    hook: pip3 install -r requirements.txt -t ./
+  region: ap-guangzhou
+  faas:
+    framework: flask
+    name: '${name}'
+    runtime: Python3.6
+    eip: false
+    timeout: 3
+    memorySize: 512
+    tags: []
+    environments: []
+  apigw:
+    protocols:
+      - http
+      - https
+    timeout: 60
+    environment: release
+    customDomains: []
+  isAutoCiDeploy: false
+org: '1300061766'
+app: feishu-auto-bot
+stage: dev
