@@ -1,5 +1,4 @@
-from flask import Flask, jsonify, render_template, request
-
+from flask import Flask, jsonify, render_template
 app = Flask(__name__)
 
 
@@ -12,11 +11,6 @@ def index():
 def users():
     users = [{'name': 'test1'}, {'name': 'test2'}]
     return jsonify(data=users)
-
-@app.route("/chat", methods=['POST'])
-def chat():
-    return request.json['CHALLENGE'];
-
 
 
 @app.route("/users/<id>")
