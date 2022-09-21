@@ -1,5 +1,5 @@
 component: http
-name: http-flask-q1LvTmA4cx
+name: http-flask-q85w40KyYx
 inputs:
   src:
     dist: ./
@@ -25,5 +25,5 @@ inputs:
     customDomains: []
   isAutoCiDeploy: false
 org: '1300061766'
-app: feishu-auto-talk-bot
+app: feishu-bot
 stage: dev
