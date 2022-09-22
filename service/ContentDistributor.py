@@ -13,7 +13,7 @@ def distributeContent(data):
 
     # 2. 根据消息类型，调用不同的分发方法
     # 解析文本，获取消息类型
-    type = text.split(' ')[0]
+    type = text.split(' ')[1]
     switcher = {
         '笑话': joke
         # '天气': getWeather,
