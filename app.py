@@ -23,6 +23,5 @@ def chat():
     return ContentDistributor.distributeContent(data)
 
 
-
 # 启动服务，监听 9000 端口，监听地址为 0.0.0.0
 app.run(debug=IS_SERVERLESS != True, port=9000, host='0.0.0.0')

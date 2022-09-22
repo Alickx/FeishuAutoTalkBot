@@ -13,7 +13,7 @@ def feishu_send_message(content, message_id):
     }
 
     data = {
-        'content': content,
+        'content': f'{content}',
         'msg_type': 'text',
         'uuid': get_uuid()
     }
