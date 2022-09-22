@@ -21,7 +21,7 @@ def feishu_send_message(content, message_id):
 
     print(f'发送消息: {data}，请求地址: {url}，请求头: {headers}')
 
-    res = requests.post(url=url, headers=headers, json=data)
+    res = requests.post(url=url, headers=headers, data=json.dumps(data, ensure_ascii=False))
     print(res.json())
     return res.json()
 
