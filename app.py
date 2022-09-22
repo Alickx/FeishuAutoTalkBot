@@ -15,5 +15,11 @@ def test():
     return 'test'
 
 
+@app.route('/chat', methods=['POST'])
+def chat():
+    chanllenge = request.json['challenge']
+    return jsonify({'challenge': chanllenge})
+
+
 # 启动服务，监听 9000 端口，监听地址为 0.0.0.0
 app.run(debug=IS_SERVERLESS != True, port=9000, host='0.0.0.0')
