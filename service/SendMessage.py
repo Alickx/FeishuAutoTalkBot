@@ -2,6 +2,7 @@ import os
 import uuid
 
 import requests
+from flask import json
 
 
 def feishu_send_message(content, message_id):
@@ -13,7 +14,7 @@ def feishu_send_message(content, message_id):
     }
 
     data = {
-        'content': f'{content}',
+        'content': json.dumps(content, ensure_ascii=False),
         'msg_type': 'text',
         'uuid': get_uuid()
     }
