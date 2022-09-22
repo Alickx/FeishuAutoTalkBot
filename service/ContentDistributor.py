@@ -22,6 +22,7 @@ def distributeContent(data):
         }
         feishu_send_message(card, message_id)
     else:
+        text = type[1]
         switcher = {
             '踏出的一小步': test,
             # '笑话': joke
