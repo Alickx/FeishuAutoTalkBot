@@ -16,7 +16,8 @@ def distributeContent(data):
     # 解析文本，获取消息类型
     type = text.split(' ')[1]
     switcher = {
-        '笑话': joke
+        '踏出的一小步': test,
+        # '笑话': joke
         # '天气': getWeather,
         # '翻译': getTranslate,
         # '笑话': getJoke,
@@ -36,9 +37,9 @@ def distributeContent(data):
     return 'success'
 
 
-def joke(user_id, user_name):
+def test(user_id, user_name):
     # 获取笑话
-    content = '我这个就是个笑话'
+    content = '机器人的一大步'
     # 构造消息卡片
     message_card = {
         'text': f'<at user_id="{user_id}">{user_name}</at> {content}',
