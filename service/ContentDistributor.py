@@ -5,6 +5,7 @@ from service.SendMessage import feishu_send_message
 def distributeContent(data):
     # 1. 获取消息文本
     user_id = data['sender']['sender_id']['user_id']
+    user_name = data['message']['mentions'][0]['name']
     textJson = data['message']['content']
     message_id = data['message']['message_id']
     text = json.loads(textJson)['text']
@@ -24,22 +25,22 @@ def distributeContent(data):
         # '股票': getStock,
         # '快递': getExpress,
     }
-    func = switcher.get(type, lambda x: {
+    func = switcher.get(type, lambda x, y: {
         'text': '我不知道你在说什么'
     })
     # 调用方法
-    message_card = func(user_id)
+    message_card = func(user_id, user_name)
     # 返回成功响应
     feishu_send_message(message_card, message_id)
     print('success')
     return 'success'
 
 
-def joke(user_id):
+def joke(user_id, user_name):
     # 获取笑话
     content = '我这个就是个笑话'
     # 构造消息卡片
     message_card = {
-        'text': f'<at user_id="{user_id}"> {content}',
+        'text': f'<at user_id="{user_id}">{user_name}</at> {content}',
     }
     return message_card
