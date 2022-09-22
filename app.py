@@ -1,5 +1,7 @@
+import json
 import os
 from flask import Flask, jsonify, render_template, request, url_for, send_from_directory
+from service import ContentDistributor
 from werkzeug.utils import secure_filename
 
 IS_SERVERLESS = bool(os.environ.get('SERVERLESS'))
@@ -17,8 +19,9 @@ def test():
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    chanllenge = request.json['challenge']
-    return jsonify({'challenge': chanllenge})
+    data = request.json['event']
+    return ContentDistributor.distributeContent(data)
+
 
 
 # 启动服务，监听 9000 端口，监听地址为 0.0.0.0
