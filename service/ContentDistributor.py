@@ -22,7 +22,7 @@ def distributeContent(data):
         }
         feishu_send_message(card, message_id)
     else:
-        text = type[1]
+        instructions = type[1]
         switcher = {
             '踏出的一小步': test,
             # '笑话': joke
@@ -34,7 +34,7 @@ def distributeContent(data):
             # '股票': getStock,
             # '快递': getExpress,
         }
-        func = switcher.get(type, lambda x, y: {
+        func = switcher.get(instructions, lambda x, y: {
             'text': '我不知道你在说什么'
         })
         # 调用方法
