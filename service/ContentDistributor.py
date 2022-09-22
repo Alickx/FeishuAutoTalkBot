@@ -14,25 +14,32 @@ def distributeContent(data):
 
     # 2. 根据消息类型，调用不同的分发方法
     # 解析文本，获取消息类型
-    type = text.split(' ')[1]
-    switcher = {
-        '踏出的一小步': test,
-        # '笑话': joke
-        # '天气': getWeather,
-        # '翻译': getTranslate,
-        # '笑话': getJoke,
-        # '菜谱': getCookbook,
-        # '新闻': getNews,
-        # '股票': getStock,
-        # '快递': getExpress,
-    }
-    func = switcher.get(type, lambda x, y: {
-        'text': '我不知道你在说什么'
-    })
-    # 调用方法
-    message_card = func(user_id, user_name)
-    # 返回成功响应
-    feishu_send_message(message_card, message_id)
+    type = text.split(' ')
+    # 如果长度为 1，说明只有一个命令，没有参数
+    if len(type) == 1:
+        card = {
+            'text': '我不知道你在说什么'
+        }
+        feishu_send_message(card, message_id)
+    else:
+        switcher = {
+            '踏出的一小步': test,
+            # '笑话': joke
+            # '天气': getWeather,
+            # '翻译': getTranslate,
+            # '笑话': getJoke,
+            # '菜谱': getCookbook,
+            # '新闻': getNews,
+            # '股票': getStock,
+            # '快递': getExpress,
+        }
+        func = switcher.get(type, lambda x, y: {
+            'text': '我不知道你在说什么'
+        })
+        # 调用方法
+        message_card = func(user_id, user_name)
+        # 返回成功响应
+        feishu_send_message(message_card, message_id)
     print('success')
     return 'success'
 
