@@ -9,6 +9,8 @@ def distributeContent(data):
     message_id = data['message']['message_id']
     text = json.loads(textJson)['text']
 
+    print(f'收到消息: {text}')
+
     # 2. 根据消息类型，调用不同的分发方法
     # 解析文本，获取消息类型
     type = text.split(' ')[0]
@@ -22,7 +24,9 @@ def distributeContent(data):
         # '股票': getStock,
         # '快递': getExpress,
     }
-    func = switcher.get(type, lambda x: '你的命令我不认识捏')
+    func = switcher.get(type, lambda x: {
+        'text': '我不知道你在说什么'
+    })
     # 调用方法
     message_card = func(user_id)
     # 返回成功响应
@@ -39,6 +43,3 @@ def joke(user_id):
         'text': f'<at user_id="{user_id}"> {content}',
     }
     return message_card
-
-
-
