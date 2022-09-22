@@ -1,13 +1,19 @@
-from flask import Flask, jsonify, request
+import os
+from flask import Flask, jsonify, render_template, request, url_for, send_from_directory
+from werkzeug.utils import secure_filename
+
+IS_SERVERLESS = bool(os.environ.get('SERVERLESS'))
+print(IS_SERVERLESS)
 
 app = Flask(__name__)
 
 
-@app.route("/chat", methods=['POST'])
-def chat():
-    challenge = request.json['challenge']
-    return jsonify({'challenge': challenge})
+# 初始化上传临时目录
+
+@app.route('/test', methods=['GET'])
+def test():
+    return 'test'
 
 
-# HTTP 直通函数由于是基于 docker 镜像运行，所以必须监听地址为 0.0.0.0，并且端口为 9000
-app.run(host='0.0.0.0', port=9000)
+# 启动服务，监听 9000 端口，监听地址为 0.0.0.0
+app.run(debug=IS_SERVERLESS != True, port=9000, host='0.0.0.0')
