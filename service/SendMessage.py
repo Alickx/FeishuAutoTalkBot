@@ -19,6 +19,8 @@ def feishu_send_message(content, message_id):
         'uuid': get_uuid()
     }
 
+    print(f'发送消息: {data}，请求地址: {url}，请求头: {headers}')
+
     res = requests.post(url=url, headers=headers, json=data)
     print(res.json())
     return res.json()
