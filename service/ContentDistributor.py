@@ -1,3 +1,4 @@
+import requests
 from flask import json
 from service.SendMessage import feishu_send_message
 
@@ -23,33 +24,20 @@ def distributeContent(data):
         feishu_send_message(card, message_id)
     else:
         instructions = type[1]
-        switcher = {
-            '踏出的一小步': test,
-            # '笑话': joke
-            # '天气': getWeather,
-            # '翻译': getTranslate,
-            # '笑话': getJoke,
-            # '菜谱': getCookbook,
-            # '新闻': getNews,
-            # '股票': getStock,
-            # '快递': getExpress,
+        content = getAiComment(instructions)
+        # 构造消息卡片
+        message_card = {
+            'text': f'<at user_id="{user_id}">{user_name}</at> {content}',
         }
-        func = switcher.get(instructions, lambda x, y: {
-            'text': '我不知道你在说什么'
-        })
-        # 调用方法
-        message_card = func(user_id, user_name)
         # 返回成功响应
         feishu_send_message(message_card, message_id)
     print('success')
     return 'success'
 
 
-def test(user_id, user_name):
-    # 获取笑话
-    content = '机器人的一大步'
-    # 构造消息卡片
-    message_card = {
-        'text': f'<at user_id="{user_id}">{user_name}</at> {content}',
-    }
-    return message_card
+# 调用接口获取小爱回复的消息
+def getAiComment(text):
+    url = f'https://apibug.cn/api/xiaoai/?msg={text}&apiKey=b2c10cd07f6f0e6664a8db74f204d03d'
+    response = requests.get(url)
+    response.encoding = 'utf-8'
+    return response.json()['text']
