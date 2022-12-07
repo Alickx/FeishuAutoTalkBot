@@ -20,18 +20,9 @@ def test():
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    # data = request.json['event']
-    # # 异步处理消息
-    # ContentDistributor.distributeContent(data)
-    # return 'success'
-    challenge = request.json['challenge']
-    # 发送get请求
     url = os.getenv('HANDLE_URL')
     requests.post(url, data=json.dumps(request.json))
-    data = {
-        "challenge": challenge
-    }
-    return json.dumps(data)
+    return 'success'
 
 
 # 启动服务，监听 9000 端口，监听地址为 0.0.0.0
