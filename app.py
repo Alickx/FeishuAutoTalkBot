@@ -1,11 +1,8 @@
 import json
 import os
-from concurrent.futures import ThreadPoolExecutor
 
 import requests
-from flask import Flask, jsonify, render_template, request, url_for, send_from_directory
-from service import ContentDistributor
-from werkzeug.utils import secure_filename
+from flask import Flask, request
 
 IS_SERVERLESS = bool(os.environ.get('SERVERLESS'))
 print(IS_SERVERLESS)
@@ -31,9 +28,7 @@ def chat():
     # 发送get请求
     url = os.getenv('HANDLE_URL')
     requests.post(url, data=json.dumps(request.json['challenge']))
-    return {
-        "challenge": challenge
-    }
+    return json.dumps(challenge)
 
 
 # 启动服务，监听 9000 端口，监听地址为 0.0.0.0
