@@ -1,4 +1,6 @@
-import requests
+import os
+
+import openai
 from flask import json
 from service.SendMessage import feishu_send_message
 
@@ -35,9 +37,23 @@ def distributeContent(data):
     return 'success'
 
 
-# 调用接口获取小爱回复的消息
+# 调用接口获取回复的消息
 def getAiComment(text):
-    url = f'https://apibug.cn/api/xiaoai/?msg={text}&apiKey=b2c10cd07f6f0e6664a8db74f204d03d'
-    response = requests.get(url)
-    response.encoding = 'utf-8'
-    return response.json()['text']
+
+
+    openai.api_key = os.getenv('OPENAI_API_KEY')
+
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=f"{text}",
+        temperature=0.7,
+        max_tokens=1000,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+    text = response["choices"][0]["text"]
+    # unicode转中文
+    text = text.encode('utf-8').decode('utf-8')
+    return text
