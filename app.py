@@ -27,7 +27,7 @@ def chat():
     challenge = request.json['challenge']
     # 发送get请求
     url = os.getenv('HANDLE_URL')
-    requests.post(url, data=request.json)
+    requests.post(url, data=json.dumps(request.json))
     data = {
         "challenge": challenge
     }
