@@ -1,8 +1,11 @@
 import os
+from concurrent.futures import ThreadPoolExecutor
 
 import openai
 from flask import json
 from service.SendMessage import feishu_send_message
+
+executor = ThreadPoolExecutor()
 
 
 def distributeContent(data):
@@ -56,3 +59,7 @@ def getAiComment(text):
     # unicode转中文
     text = text.encode('utf-8').decode('utf-8')
     return text
+
+
+def async_distributeContent(data):
+    executor.submit(distributeContent(data))

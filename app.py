@@ -12,8 +12,6 @@ print(IS_SERVERLESS)
 app = Flask(__name__)
 
 
-executor = ThreadPoolExecutor(max_workers=1)
-
 
 # 初始化上传临时目录
 
@@ -26,7 +24,7 @@ def test():
 def chat():
     data = request.json['event']
     # 异步处理消息
-    executor.submit(ContentDistributor.distributeContent(data))
+    ContentDistributor.distributeContent(data)
     return 'success'
 
 
