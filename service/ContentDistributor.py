@@ -34,7 +34,6 @@ def distributeContent(data):
         # 返回成功响应
         feishu_send_message(message_card, message_id)
     print('success')
-    return 'success'
 
 
 # 调用接口获取回复的消息
